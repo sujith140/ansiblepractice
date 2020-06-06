@@ -1,0 +1,48 @@
+-  hosts: all
+   become: yes
+   tasks:
+     -  name: install apache2
+        apt:
+          name: apache2
+          update_cache: yes
+          state: present
+        notify:
+          -  restart and enable apache2
+        when: ansible_facts['os_family'] == "Debian"
+     -  name: install php modules on debian
+        apt:
+          name: "{{ item }}"
+          state: present
+        loop:
+          -  php
+          -  libapache2-mod-php
+          -  php-mysql
+          -  php-cli
+        notify:
+          -  restart and enable apache2
+        when: ansible_facts['os_family'] == "Debian"
+     -  name: install htppd
+        yum:
+          name: htppd
+          state: present
+        notify:
+          -  restart and enable htppd
+        when: ansible_facts['os_family'] == "RedHat"
+     -  name: install php modules on redhat
+        yum:
+          name: "{{ item }}"
+          state: present
+        notify:
+          -  restart and enable htppd
+        when: ansible_facts['os_family'] == "RedHat"                          
+   handlers:
+     -  name: restart and enable apache2
+        service:
+          name: apache2
+          enabled: yes
+          state: restarted
+     -  name: restart and enable htppd
+        service:
+          name: htppd
+          enabled: yes
+          state: started     
