@@ -6,6 +6,7 @@ node('ansible')
     }
     stage('execute playbook')
     {
-        sh 'ansible-playbook -i lamp_with_Variables/hosts lamp_with_Variables/lamp.yaml'
+        sh 'ansible-playbook -i lampwithgroupandhostvars/hosts lamp_with_Variables/lamp.yaml'
     }
 }
+
