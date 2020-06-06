@@ -21,19 +21,19 @@
         notify:
           -  restart and enable apache2
         when: ansible_facts['os_family'] == "Debian"
-     -  name: install htppd
+     -  name: install httpd
         yum:
-          name: htppd
+          name: httpd
           state: present
         notify:
-          -  restart and enable htppd
+          -  restart and enable httpd
         when: ansible_facts['os_family'] == "RedHat"
      -  name: install php modules on redhat
         yum:
           name: "{{ item }}"
           state: present
         notify:
-          -  restart and enable htppd
+          -  restart and enable httpd
         when: ansible_facts['os_family'] == "RedHat"                          
    handlers:
      -  name: restart and enable apache2
@@ -41,8 +41,8 @@
           name: apache2
           enabled: yes
           state: restarted
-     -  name: restart and enable htppd
+     -  name: restart and enable httpd
         service:
-          name: htppd
+          name: httpd
           enabled: yes
           state: started     

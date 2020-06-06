@@ -1,13 +1,13 @@
 -  hosts: all
    become: yes
    tasks:
-     -  name: install htppd
+     -  name: install httpd
         yum:
-          name: htppd
+          name: httpd
           state: present
-     -  name: enable and restart htppd
+     -  name: enable and restart httpd
         service:
-          name: htppd
+          name: httpd
           enabled: yes
           state: restarted
      -  name: install php
@@ -22,8 +22,8 @@
         yum:
           name: php-mysql
           state: present
-     -  name: restart htppd
+     -  name: restart httpd
         service:
-          name: htppd
+          name: httpd
           state: restarted
                                    
