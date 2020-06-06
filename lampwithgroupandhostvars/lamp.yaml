@@ -1,0 +1,28 @@
+-  hosts: all
+   become: yes
+   tasks:
+     -  name: fail if unsupported os
+        fail:
+          message: this playbook is supported only for redhat and debian family
+        when: ansible_facts['os_family'] != "RedHat" or ansible_facts['os_family'] != "Debian"  
+     -  name: install apache
+        package:
+          name: "{{ package_name }}" 
+          state: present
+        notify: 
+          -  restart and enable apache
+        when: ansible_facts['os_family'] == "RedHat" or ansible_facts['os_family'] == "Debian"
+     -  name: install php modules
+        package:
+          name: "{{ item }}"
+          state: present
+        loop: "{{ php_modules }}"  
+        notify:
+          - restart and enable apache
+        when: ansible_facts['os_family'] == "RedHat" or ansible_facts['os_family'] == "Debian"        
+   handlers:
+     -  name: restart and enable apache
+        service:
+          name: "{{ package_name }}"
+          enabled: yes
+          state: restarted
