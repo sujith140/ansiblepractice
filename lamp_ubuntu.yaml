@@ -1,0 +1,33 @@
+-  hosts: all
+   become: yes
+   tasks:
+     -  name: update packages and install apache2
+        apt:
+          name: apache2
+          update_cache: yes
+          state: present
+     -  name: restart and enable apache2
+        service:
+          name: apache2
+          enabled: yes
+          state: restarted
+     -  name: install php
+        apt:
+          name: php
+          state: present
+     -  name: install libapache2-mod-php
+        apt:
+          name: libapache2-mod-php
+          state: present
+     -  name: install php-mysql
+        apt:
+          name: php-mysql
+          state: present
+     -  name: install php-cli
+        apt:
+          name: php-cli
+          state: present
+     -  name: restart apache2
+        service:
+        name: apache2
+        state: restarted                                

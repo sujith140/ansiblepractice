@@ -1,0 +1,25 @@
+-  hosts: all
+   become: yes
+   tasks:
+     -  name: install htppd
+        yum:
+          name: htppd
+          state: present
+        notify:
+          -  enable and restart htppd
+     -  name: install php modules
+        yum:
+          name: "{{ item }}"
+          state: present
+        loop:
+          -  php
+          -  php-mysql
+          -  php-cli
+        notify:
+          -  enable and restart htppd         
+   handlers:
+     -  name: enable and restart htppd
+        service:
+          name: htppd
+          enabled: yes
+          state: restarted
