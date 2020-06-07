@@ -4,7 +4,7 @@
      -  name: fail if unsupported os
         fail:
           msg: "this playbook is supported only for redhat and debian family"
-        when: ansible_facts['os_family'] != "RedHat" or ansible_facts['os_family'] != "Debian"  
+        when: ansible_facts['os_family'] != "RedHat" and ansible_facts['os_family'] != "Debian"  
      -  name: install apache
         package:
           name: "{{ package_name }}" 
