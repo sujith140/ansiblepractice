@@ -25,7 +25,8 @@
           src: info.php
           dest: /var/www/html/info.php
         notify:
-          -  restart and enable apache             
+          -  restart and enable apache 
+          when: ansible_facts['os_family'] == "RedHat" or ansible_facts['os_family'] == "Debian"              
    handlers:
      -  name: restart and enable apache
         service:
