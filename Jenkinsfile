@@ -6,7 +6,7 @@ node('ansible')
     }
     stage('execute playbook')
     {
-        sh 'ansible-playbook -i lampfinal/hosts lampfinal/lamp.yaml'
+        sh 'ansible-playbook -i hosts.yaml role.yaml'
     }
 }
 
