@@ -1,0 +1,7 @@
+---
+# handlers file for lamp
+-  name: restart and enable apache
+   service:
+     name: "{{ package_name }}"
+     enabled: yes
+     state: restarted
